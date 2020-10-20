@@ -8,14 +8,6 @@
 <script>
 export default {
   name: 'App',
-  mounted () {
-    this.loadChampionData()
-  },
-  methods: {
-    async loadChampionData () {
-      await this.$store.dispatch('leagueData/loadChampions')
-    },
-  },
 }
 </script>
 
