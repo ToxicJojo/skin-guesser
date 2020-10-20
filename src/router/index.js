@@ -1,9 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import SkinGuesserGame from '@/views/SkinGuesserGame.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/game',
+    name: 'game',
+    component: SkinGuesserGame,
+  },
 ]
 
 const router = new VueRouter({
