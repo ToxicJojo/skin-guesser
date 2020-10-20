@@ -6,8 +6,10 @@
       ChampionSelect(v-model='selectedChampion')
       SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
       button(@click='checkGuess') Guess
-      SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData')
-      .cheats
+      span Points: {{ gameState.points }}
+      SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
+      button(@click='isShowDebug = !isShowDebug') Toggle debug mode
+      .cheats(v-if='isShowDebug')
         h2 Debug Tools
         label Displayed Skin:
         ChampionSelect(v-model='currentChampion')
@@ -29,6 +31,7 @@ import ChampionSelect from '@/components/game/ChampionSelect.vue'
 import SkinSelect from '@/components/game/SkinSelect.vue'
 
 import randomHelper from '@/util/random-helper'
+import wait from '@/util/wait'
 
 export default {
   name: 'SkinGuesserGamer',
@@ -39,15 +42,21 @@ export default {
   },
   data () {
     return {
-      isLoadingData: false,
-      currentChampion: {},
-      currentSkin: {},
+      isLoadingData: true,
+      isShowDebug: false,
+      gameState: {
+        points: 0,
+        isGuessCorrect: false,
+        isGuessIncorrect: false,
+      },
+      currentChampion: undefined,
+      currentSkin: undefined,
       selectedChampion: {},
       selectedSkin: {},
       clipData: {
-        radius: 50,
-        x: 50,
-        y: 50,
+        radius: 0,
+        x: 0,
+        y: 0,
       },
       clipSettings: {
         radius: {
@@ -70,16 +79,40 @@ export default {
       return this.$store.state.leagueData.champions
     },
   },
-  beforeMount () {
-    this.loadChampionData()
+  async mounted () {
+    await this.loadChampionData()
+    this.startGame()
   },
   methods: {
+    async startGame () {
+      await this.showRandomSkin()
+      this.randomizeClipping()
+      this.isLoadingData = false
+    },
+    showNextSkin () {
+      this.showRandomSkin()
+      this.randomizeClipping()
+    },
+    async revealSkin () {
+      this.clipData.radius = 150
+      await wait(1000)
+    },
+    async hideSkin () {
+      this.clipData.radius = 0
+      await wait(1000)
+    },
+    async guessCorrect () {
+      this.gameState.points += 100
+      this.gameState.isGuessCorrect = true
+      await this.revealSkin()
+    },
+    async guessIncorrect () {
+      this.gameState.isGuessIncorrect = true
+      await this.revealSkin()
+    },
     async loadChampionData () {
       this.isLoadingData = true
       await this.$store.dispatch('leagueData/loadChampions')
-      this.isLoadingData = false
-
-      this.showRandomSkin()
     },
     async showRandomSkin () {
       this.currentChampion = randomHelper.getRandomElement(this.champions)
@@ -92,12 +125,17 @@ export default {
       this.clipData.x = randomHelper.getRandomIntBetween(this.clipSettings.x.min, this.clipSettings.x.max)
       this.clipData.y = randomHelper.getRandomIntBetween(this.clipSettings.y.min, this.clipSettings.y.max)
     },
-    checkGuess () {
+    async checkGuess () {
       if (this.currentChampion.id === this.selectedChampion.id && this.currentSkin.id === this.selectedSkin.id) {
-        alert('Correct guess!')
+        await this.guessCorrect()
       } else {
-        alert(`Wrong it was: ${this.currentSkin.name}`)
+        await this.guessIncorrect()
       }
+
+      this.gameState.isGuessCorrect = false
+      this.gameState.isGuessIncorrect = false
+      await this.hideSkin()
+      this.showNextSkin()
     },
   },
 }

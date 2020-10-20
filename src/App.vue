@@ -1,7 +1,5 @@
 <template lang='pug'>
   .app
-    h3 Skin Guesser
-    router-link(to='game') Play
     router-view
 </template>
 
@@ -12,5 +10,13 @@ export default {
 </script>
 
 <style lang='scss'>
+* {
+  box-sizing: border-box;
+}
 
+body {
+  margin: 0;
+  background: #1c1c1c;
+  color: #fefefe;
+}
 </style>
