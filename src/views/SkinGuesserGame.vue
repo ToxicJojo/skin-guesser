@@ -60,7 +60,7 @@ export default {
       },
       clipSettings: {
         radius: {
-          min: 8,
+          min: 10,
           max: 25,
         },
         x: {
