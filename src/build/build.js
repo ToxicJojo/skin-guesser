@@ -53,5 +53,5 @@ const getSkinData = async (version, championId) => {
 
   const championData = await getChampionData(currentVersion)
 
-  fs.writeJSONSync('data/champions.json', championData)
+  fs.writeJSONSync('src/data/champions.json', championData)
 }))()

@@ -3,7 +3,7 @@ node_modules
 /dist
 
 # League data folder
-data
+src/data
 
 # local env files
 .env.local
