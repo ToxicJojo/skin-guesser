@@ -3,32 +3,36 @@
     div(v-if='isLoadingData')
       p Loading champion data
     template(v-else)
-      ChampionSelect(v-model='selectedChampion')
-      SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
-      button(@click='checkGuess') Guess
-      span Points: {{ gameState.points }}
-      SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
-      button(@click='isShowDebug = !isShowDebug') Toggle debug mode
-      .cheats(v-if='isShowDebug')
-        h2 Debug Tools
-        label Displayed Skin:
-        ChampionSelect(v-model='currentChampion')
-        SkinSelect(v-model='currentSkin' :champion='currentChampion')
-        button(@click='showRandomSkin') Random Skin
-        br
-        label Radius
-          input(type='range' min='0' max='100' v-model='clipData.radius')
-        label X
-          input(type='range' min='0' max='100' v-model='clipData.x')
-        label Y
-          input(type='range' min='0' max='100' v-model='clipData.y')
-        button(@click='randomizeClipping') Random Clipping
+      GameSetup(v-if='isSelectingMode' @startGame='startGame')
+      template(v-else)
+        ChampionSelect(v-model='selectedChampion')
+        SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
+        button(@click='checkGuess') Guess
+        span Points: {{ gameState.points }}
+        SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
+        button(@click='isShowDebug = !isShowDebug') Toggle debug mode
+        .cheats(v-if='isShowDebug')
+          h2 Debug Tools
+          label Displayed Skin:
+          ChampionSelect(v-model='currentChampion')
+          SkinSelect(v-model='currentSkin' :champion='currentChampion')
+          button(@click='showRandomSkin') Random Skin
+          br
+          label Radius
+            input(type='range' min='0' max='100' v-model='clipData.radius')
+          label X
+            input(type='range' min='0' max='100' v-model='clipData.x')
+          label Y
+            input(type='range' min='0' max='100' v-model='clipData.y')
+          button(@click='randomizeClipping') Random Clipping
+          button(@click='revealSkin') Reveal Skin
 </template>
 
 <script>
 import SkinDisplay from '@/components/game/SkinDisplay.vue'
 import ChampionSelect from '@/components/game/ChampionSelect.vue'
 import SkinSelect from '@/components/game/SkinSelect.vue'
+import GameSetup from '@/views/GameSetup.vue'
 
 import randomHelper from '@/util/random-helper'
 import wait from '@/util/wait'
@@ -39,9 +43,11 @@ export default {
     SkinDisplay,
     ChampionSelect,
     SkinSelect,
+    GameSetup,
   },
   data () {
     return {
+      isSelectingMode: true,
       isLoadingData: true,
       isShowDebug: false,
       gameState: {
@@ -58,36 +64,26 @@ export default {
         x: 0,
         y: 0,
       },
-      clipSettings: {
-        radius: {
-          min: 10,
-          max: 25,
-        },
-        x: {
-          min: 15,
-          max: 85,
-        },
-        y: {
-          min: 15,
-          max: 85,
-        },
-      },
     }
   },
   computed: {
     champions () {
       return this.$store.state.leagueData.champions
     },
+    clipSettings () {
+      return this.$store.state.gameData.difficulty.clipSettings
+    },
   },
   async mounted () {
     await this.loadChampionData()
-    this.startGame()
+    this.isLoadingData = false
   },
   methods: {
     async startGame () {
       await this.showRandomSkin()
       this.randomizeClipping()
-      this.isLoadingData = false
+
+      this.isSelectingMode = false
     },
     showNextSkin () {
       this.showRandomSkin()
