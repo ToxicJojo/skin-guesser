@@ -8,7 +8,7 @@
         ChampionSelect(v-model='selectedChampion')
         SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
         button(@click='checkGuess') Guess
-        span Points: {{ gameState.points }}
+        button(@click='isSelectingMode = true') Mode Select
         SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
         button(@click='isShowDebug = !isShowDebug') Toggle debug mode
         .cheats(v-if='isShowDebug')
@@ -51,7 +51,6 @@ export default {
       isLoadingData: true,
       isShowDebug: false,
       gameState: {
-        points: 0,
         isGuessCorrect: false,
         isGuessIncorrect: false,
       },
@@ -98,7 +97,6 @@ export default {
       await wait(1000)
     },
     async guessCorrect () {
-      this.gameState.points += 100
       this.gameState.isGuessCorrect = true
       await this.revealSkin()
     },
