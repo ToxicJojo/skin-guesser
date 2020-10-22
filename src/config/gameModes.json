@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Free Play",
+    "id": "freePlay",
+    "description": "Keep playing as long as you want withouth any pressure."
+  },
+  {
+    "name": "Time Attack",
+    "id": "timeAttack",
+    "description": "Guess as many as you can until the time runs out."
+  }
+]

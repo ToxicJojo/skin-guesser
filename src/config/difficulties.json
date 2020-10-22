@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Easy",
+        "id": "easy",
+        "clipSettings": {
+            "radius": {
+                "min": 25,
+                "max": 35
+            },
+            "x": {
+                "min": 25,
+                "max": 75
+            },
+            "y": {
+                "min": 25,
+                "max": 75
+            }
+        }
+    },
+    {
+        "name": "Normal",
+        "id": "normal",
+        "clipSettings": {
+            "radius": {
+                "min": 10,
+                "max": 25
+            },
+            "x": {
+                "min": 15,
+                "max": 85
+            },
+            "y": {
+                "min": 15,
+                "max": 85
+            }
+        }
+    },
+    {
+        "name": "Hard",
+        "id": "hard",
+        "clipSettings": {
+            "radius": {
+                "min": 5,
+                "max": 15
+            },
+            "x": {
+                "min": 10,
+                "max": 90
+            },
+            "y": {
+                "min": 10,
+                "max": 90
+            }
+        }
+    }
+]
