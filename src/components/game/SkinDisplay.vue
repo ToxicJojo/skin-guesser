@@ -31,8 +31,14 @@ export default {
 <style lang='scss' scoped>
 .skin-display {
   position: relative;
+  background-color: #1c1c1c;
+  max-width: 1215px;
+  max-height: 717px;
   transition: box-shadow .5s;
-  margin: 24px;
+  margin: 24px auto;
+  box-shadow: 0px 0px 20px 10px #333;
+  border-radius: 16px;
+  overflow: hidden;
 
   .guess-correct-message, .guess-incorrect-message {
     position: absolute;
@@ -46,15 +52,15 @@ export default {
   }
 
   .guess-correct-message {
-    color: #168d2a;
+    color: var(--color-success);
   }
 
   .guess-incorrect-message {
-    color: #8d1616;
+    color: var(--color-error);
   }
 
   &.guess-correct {
-    box-shadow: 0px 0px 20px 10px #168d2abf;
+    box-shadow: 0px 0px 20px 10px var(--color-success);
 
     .guess-correct-message {
       opacity: 1;
@@ -62,7 +68,7 @@ export default {
   }
 
   &.guess-incorrect {
-    box-shadow: 0px 0px 20px 10px #8d1616bf;
+    box-shadow: 0px 0px 20px 10px var(--color-error);
 
     .guess-incorrect-message {
       opacity: 1;
@@ -71,6 +77,8 @@ export default {
 
   img {
     transition: clip-path .5s;
+    width: 100%;
+    height: auto;
   }
 }
 </style>

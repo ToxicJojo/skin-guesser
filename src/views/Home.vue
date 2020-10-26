@@ -20,9 +20,10 @@ export default {
 
 a {
   font-size: 128px;
+  color: var(--color-text);
   padding: 32px;
   text-decoration: none;
-  //border: 8px solid var(--color-background);
+  border: 8px solid var(--color-primary);
   border-radius: 16px;
 }
 

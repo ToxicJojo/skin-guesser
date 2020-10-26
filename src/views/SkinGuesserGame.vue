@@ -5,13 +5,14 @@
     template(v-else)
       GameSetup(v-if='isSelectingMode' @startGame='startGame')
       template(v-else)
-        ChampionSelect(v-model='selectedChampion')
-        SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
-        button(@click='checkGuess') Guess
         GameTimer(v-if='isTimeAttack' :time='timer')
         span Correct Guesses: {{ gameState.correctGuesses }}
         button(@click='isSelectingMode = true') Mode Select
         SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
+        .guess-row
+          ChampionSelect(v-model='selectedChampion')
+          SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
+          button.guess-button(@click='checkGuess') Guess
         button(@click='isShowDebug = !isShowDebug') Toggle debug mode
         .cheats(v-if='isShowDebug')
           h2 Debug Tools
@@ -168,5 +169,21 @@ export default {
 <style lang='scss' scoped>
 .skin-guesser-game {
   padding: 24px;
+}
+
+.guess-row {
+  @include flex-row;
+  justify-content: center;
+}
+
+.guess-button {
+  background: #EB5757;
+  color: var(--color-text);
+  font-size: 24px;
+  border-radius: 8px;
+  border-style: solid;
+  border-width: 0px;
+  padding: 16px;
+  margin: 8px;
 }
 </style>
