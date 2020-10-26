@@ -12,4 +12,8 @@ export default {
 <style lang='scss'>
 @import '@/scss/style.scss';
 
+body {
+  background-color: var(--color-background);
+}
+
 </style>
