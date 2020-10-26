@@ -8,6 +8,8 @@
         ChampionSelect(v-model='selectedChampion')
         SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
         button(@click='checkGuess') Guess
+        GameTimer(v-if='isTimeAttack' :time='timer')
+        span Correct Guesses: {{ gameState.correctGuesses }}
         button(@click='isSelectingMode = true') Mode Select
         SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
         button(@click='isShowDebug = !isShowDebug') Toggle debug mode
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import GameTimer from '@/components/game/GameTimer.vue'
 import SkinDisplay from '@/components/game/SkinDisplay.vue'
 import ChampionSelect from '@/components/game/ChampionSelect.vue'
 import SkinSelect from '@/components/game/SkinSelect.vue'
@@ -40,6 +43,7 @@ import wait from '@/util/wait'
 export default {
   name: 'SkinGuesserGamer',
   components: {
+    GameTimer,
     SkinDisplay,
     ChampionSelect,
     SkinSelect,
@@ -53,6 +57,7 @@ export default {
       gameState: {
         isGuessCorrect: false,
         isGuessIncorrect: false,
+        correctGuesses: 0,
       },
       currentChampion: undefined,
       currentSkin: undefined,
@@ -63,6 +68,8 @@ export default {
         x: 0,
         y: 0,
       },
+      timer: 0,
+      timerId: 0,
     }
   },
   computed: {
@@ -71,6 +78,12 @@ export default {
     },
     clipSettings () {
       return this.$store.state.gameData.difficulty.clipSettings
+    },
+    gameMode () {
+      return this.$store.state.gameData.gameMode
+    },
+    isTimeAttack () {
+      return this.gameMode.id === 'timeAttack'
     },
   },
   async mounted () {
@@ -82,11 +95,27 @@ export default {
       await this.showRandomSkin()
       this.randomizeClipping()
 
+      this.gameState.correctGuesses = 0
+
+      if (this.isTimeAttack) {
+        this.timer = 120
+
+        this.timerId = window.setInterval(this.timerTick, 1000)
+      }
+
       this.isSelectingMode = false
     },
     showNextSkin () {
       this.showRandomSkin()
       this.randomizeClipping()
+    },
+    timerTick () {
+      this.timer--
+      if (this.timer <= 0 && this.isTimeAttack) {
+        window.clearInterval(this.timerId)
+        alert('Time Up.')
+        this.hideSkin()
+      }
     },
     async revealSkin () {
       this.clipData.radius = 150
@@ -98,6 +127,7 @@ export default {
     },
     async guessCorrect () {
       this.gameState.isGuessCorrect = true
+      this.gameState.correctGuesses++
       await this.revealSkin()
     },
     async guessIncorrect () {
