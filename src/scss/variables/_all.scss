@@ -1,5 +1,6 @@
 :root {
   --color-background: #fff;
+  --color-text: #111;
   --color-primary: #8341FF;
   --color-success: #00E676; 
   --color-error: #FF3D00; 
@@ -7,4 +8,5 @@
 
 [data-theme='dark'] {
   --color-backrgound: #2C2C2C;
+  --color-text: #eee;
 }
