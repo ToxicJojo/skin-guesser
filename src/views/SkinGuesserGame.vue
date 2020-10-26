@@ -166,4 +166,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.skin-guesser-game {
+  padding: 24px;
+}
 </style>

@@ -1,8 +1,8 @@
 <template lang='pug'>
   .mode-select
     template(v-for='mode in gameModes')
-      input(type='radio' name='gameMode' :id='"mode" + mode.id' :value='mode.id' :checked='value.id === mode.id' @change='$emit("input", mode)')
-      label(:for='"mode" + mode.id') {{ mode.name }}
+      input.radio-select(type='radio' name='gameMode' :id='"mode" + mode.id' :value='mode.id' :checked='value.id === mode.id' @change='$emit("input", mode)')
+      label.radio-select(:for='"mode" + mode.id') {{ mode.name }}
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
 <style lang='scss' scoped>
 
 .mode-select {
-  display: flex;
+  @include flex-row;
   justify-content: center;
 }
 

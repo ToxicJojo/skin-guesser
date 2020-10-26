@@ -1,8 +1,7 @@
 <template lang='pug'>
   .game-setup
-    h1 GameSetup
     .mode
-      h2 Mode
+      h2 Gamemode
       ModeSelect(v-model='selectedMode')
       p.mode-description {{ selectedMode.description }}
     .difficulty
@@ -44,8 +43,7 @@ export default {
 <style lang='scss' scoped>
 
 .game-setup {
-  display: flex;
-  flex-direction: column;
+  @include flex-col;
   align-items: center;
   text-align: center;
 }
