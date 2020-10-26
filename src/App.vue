@@ -10,13 +10,6 @@ export default {
 </script>
 
 <style lang='scss'>
-* {
-  box-sizing: border-box;
-}
+@import '@/scss/style.scss';
 
-body {
-  margin: 0;
-  background: #1c1c1c;
-  color: #fefefe;
-}
 </style>
