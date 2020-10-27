@@ -8,7 +8,7 @@
         GameTimer(v-if='isTimeAttack' :time='timer')
         span Correct Guesses: {{ gameState.correctGuesses }}
         button(@click='isSelectingMode = true') Mode Select
-        SkinDisplay(:splashUrl='currentSkin.splashUrl' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
+        SkinDisplay(:splashUrl='currentSkin.splashUrl' :skinName='currentSkin.name' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
         .guess-row
           ChampionSelect(v-model='selectedChampion')
           SkinSelect(v-model='selectedSkin' :champion='selectedChampion')

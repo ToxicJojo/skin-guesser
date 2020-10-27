@@ -1,7 +1,7 @@
 <template lang='pug'>
   .skin-display
-    .guess-correct-message Correct
-    .guess-incorrect-message Incorrect
+    .skin-name
+      span {{ skinName }}
     img(:src='splashUrl' :style='imageStyle')
 </template>
 
@@ -10,6 +10,10 @@ export default {
   name: 'SkinDisplay',
   props: {
     splashUrl: {
+      type: String,
+      required: true,
+    },
+    skinName: {
       type: String,
       required: true,
     },
@@ -40,38 +44,34 @@ export default {
   border-radius: 16px;
   overflow: hidden;
 
-  .guess-correct-message, .guess-incorrect-message {
+  .skin-name {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 128px;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, .5);
+    padding: 8px;
+    font-size: 48px;
     z-index: 1;
-    transition: opacity .3s;
+    transition: all .3s;
     opacity: 0;
-  }
-
-  .guess-correct-message {
-    color: var(--color-success);
-  }
-
-  .guess-incorrect-message {
-    color: var(--color-error);
   }
 
   &.guess-correct {
     box-shadow: 0px 0px 20px 10px var(--color-success);
 
-    .guess-correct-message {
+    .skin-name {
       opacity: 1;
+      color: var(--color-success)
     }
   }
 
   &.guess-incorrect {
     box-shadow: 0px 0px 20px 10px var(--color-error);
 
-    .guess-incorrect-message {
+    .skin-name {
       opacity: 1;
+      color: var(--color-error)
     }
   }
 
