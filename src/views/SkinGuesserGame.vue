@@ -5,8 +5,6 @@
     template(v-else)
       GameSetup(v-if='isSelectingMode' @startGame='startGame')
       template(v-else)
-        GameTimer(v-if='isTimeAttack' :time='timer')
-        //button(@click='isSelectingMode = true') Mode Select
         SkinDisplay(:splashUrl='currentSkin.splashUrl' :skinName='currentSkin.name' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
         .guess-row
           ChampionSelect(v-model='selectedChampion')
@@ -57,7 +55,6 @@ export default {
       gameState: {
         isGuessCorrect: false,
         isGuessIncorrect: false,
-        correctGuesses: 0,
       },
       currentChampion: undefined,
       currentSkin: undefined,
@@ -68,7 +65,6 @@ export default {
         x: 0,
         y: 0,
       },
-      timer: 0,
       timerId: 0,
     }
   },
@@ -95,10 +91,10 @@ export default {
       await this.showRandomSkin()
       this.randomizeClipping()
 
-      this.gameState.correctGuesses = 0
+      this.$store.commit('gameData/setPoints', 0)
 
       if (this.isTimeAttack) {
-        this.timer = 120
+        this.$store.commit('gameData/setRemainingTime', 120)
 
         this.timerId = window.setInterval(this.timerTick, 1000)
       }
@@ -110,8 +106,8 @@ export default {
       this.randomizeClipping()
     },
     timerTick () {
-      this.timer--
-      if (this.timer <= 0 && this.isTimeAttack) {
+      this.$store.commit('gameData/setRemainingTime', this.$store.state.gameData.remainingTime - 1)
+      if (this.$store.state.gameData.remainingTime <= 0 && this.isTimeAttack) {
         window.clearInterval(this.timerId)
         alert('Time Up.')
         this.hideSkin()
@@ -127,7 +123,7 @@ export default {
     },
     async guessCorrect () {
       this.gameState.isGuessCorrect = true
-      this.gameState.correctGuesses++
+      this.$store.commit('gameData/addPoints', 10)
       await this.revealSkin()
     },
     async guessIncorrect () {
@@ -168,10 +164,12 @@ export default {
 <style lang='scss' scoped>
 .skin-guesser-game {
   padding: 24px;
+  position: relative;
 }
 
 .guess-row {
   @include flex-row;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -184,5 +182,10 @@ export default {
   border-width: 0px;
   padding: 16px;
   margin: 8px;
+}
+
+.game-timer {
+  position: absolute;
+  right: 48px;
 }
 </style>

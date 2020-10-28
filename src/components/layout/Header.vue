@@ -1,12 +1,27 @@
 <template lang='pug'>
   header.header
     router-link(to='/') Skin Guesser
+    .game-info
+      GameTimer(v-if='isTimeAttack')
+      PointCounter
     img.settings-icon(src='@/assets/settings-24px.svg')
 </template>
 
 <script>
+import GameTimer from '@/components/game/GameTimer.vue'
+import PointCounter from '@/components/game/PointCounter.vue'
+
 export default {
   name: 'Header',
+  components: {
+    GameTimer,
+    PointCounter,
+  },
+  computed: {
+    isTimeAttack () {
+      return this.$store.state.gameData.gameMode.id === 'timeAttack'
+    },
+  },
 }
 </script>
 
@@ -27,6 +42,10 @@ header.header {
   width: 64px;
   height: 64px;
   color: white;
+}
+
+.game-info {
+  @include flex-row;
 }
 
 </style>

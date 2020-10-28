@@ -35,6 +35,7 @@ export default {
 <style lang='scss' scoped>
 .skin-display {
   position: relative;
+  display: flex;
   background-color: #1c1c1c;
   max-width: 1215px;
   max-height: 717px;
