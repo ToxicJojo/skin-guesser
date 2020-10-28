@@ -1,5 +1,5 @@
 <template lang='pug'>
-  select(@change='$emit("input", championList[$event.target.selectedIndex])' :value='value.id')
+  select.guess-select(@change='$emit("input", championList[$event.target.selectedIndex])' :value='value.id')
     option(v-for='champion in championList' :value='champion.id') {{ champion.name }}
 </template>
 

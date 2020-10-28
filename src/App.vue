@@ -1,22 +1,25 @@
 <template lang='pug'>
   .app
+    Header
     router-view
 </template>
 
 <script>
+import Header from '@/components/layout/Header.vue'
+
 export default {
   name: 'App',
+  components: {
+    Header,
+  },
 }
 </script>
 
 <style lang='scss'>
-* {
-  box-sizing: border-box;
-}
+@import '@/scss/style.scss';
 
 body {
-  margin: 0;
-  background: #1c1c1c;
-  color: #fefefe;
+  background-color: var(--color-background);
 }
+
 </style>

@@ -19,11 +19,11 @@ export default {
 }
 
 a {
-  color: #fefefe;
   font-size: 128px;
+  color: var(--color-text);
   padding: 32px;
   text-decoration: none;
-  border: 8px solid purple;
+  border: 8px solid var(--color-primary);
   border-radius: 16px;
 }
 

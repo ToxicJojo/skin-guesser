@@ -1,20 +1,25 @@
 <template lang='pug'>
   .game-timer
-    span {{ time }}
+    span Remaining Time:
+    span  {{ remainingTime }}
 </template>
 
 <script>
 export default {
   name: 'GameTimer',
-  props: {
-    time: {
-      type: Number,
-      required: true,
+  computed: {
+    remainingTime () {
+      return this.$store.state.gameData.remainingTime
     },
   },
 }
 </script>
 
 <style lang='scss' scoped>
+
+.game-timer {
+  font-size: 32px;
+  margin: 0 8px;
+}
 
 </style>
