@@ -52,7 +52,7 @@ export default {
 .settings {
   background: var(--color-background);
   padding: 24px;
-  border: 5px solid var(--color-header-background);
+  border: 5px solid var(--color-background-dark);
   @include flex-col;
 
   h1, h2 {
@@ -61,7 +61,7 @@ export default {
 }
 
 .settings-category {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--color-background-dark);
 }
 
 </style>

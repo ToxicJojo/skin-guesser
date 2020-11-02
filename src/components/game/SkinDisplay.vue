@@ -36,12 +36,12 @@ export default {
 .skin-display {
   position: relative;
   display: flex;
-  background-color: #1c1c1c;
+  background-color: var(--color-background-dark);
   max-width: 1215px;
   max-height: 717px;
   transition: box-shadow .5s;
   margin: 24px auto;
-  box-shadow: 0px 0px 20px 10px #333;
+  box-shadow: 0px 0px 20px 10px var(--color-shadow);
   border-radius: 16px;
   overflow: hidden;
 

@@ -41,7 +41,6 @@ header.header {
   padding: 8px;
   width: 64px;
   height: 64px;
-  color: white;
 }
 
 .game-info {
