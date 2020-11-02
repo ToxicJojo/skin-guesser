@@ -18,7 +18,15 @@ export default {
   },
   computed: {
     skinList () {
-      return this.champion.skins
+      if (this.champion.skins) {
+        if (this.$store.state.settings.includeBaseSkins) {
+          return this.champion.skins
+        } else {
+          return this.champion.skins.slice(1)
+        }
+      } else {
+        return []
+      }
     },
   },
 }

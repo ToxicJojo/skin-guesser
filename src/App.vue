@@ -1,16 +1,24 @@
 <template lang='pug'>
   .app
-    Header
+    Settings(@close='isShowSettings = false' v-if='isShowSettings')
+    Header(@showSettings='isShowSettings = true')
     router-view
 </template>
 
 <script>
 import Header from '@/components/layout/Header.vue'
+import Settings from '@/components/layout/Settings.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
+    Settings,
+  },
+  data () {
+    return {
+      isShowSettings: false,
+    }
   },
 }
 </script>

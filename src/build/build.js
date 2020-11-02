@@ -20,7 +20,7 @@ const getChampionData = async (version) => {
   const championData = (await axios.get(`/cdn/${version}/data/en_US/champion.json`)).data.data
   // We want the champion data as an array.
   const championArray = Promise.all(Object.entries(championData).map(async ([_, { id, name }]) => {
-    const skins = await getSkinData(version, id)
+    const skins = await getSkinData(version, id, name)
 
     const champion = {
       id,
@@ -33,7 +33,7 @@ const getChampionData = async (version) => {
   return championArray
 }
 
-const getSkinData = async (version, championId) => {
+const getSkinData = async (version, championId, championName) => {
   // Load the champion data for a specific champion for the current game version.
   // The data for the champion is inside the 'data.${championId}' attribute of the response. (see https://developer.riotgames.com/docs/lol#data-dragon_champions)
   const championData = (await axios.get(`/cdn/${version}/data/en_US/champion/${championId}.json`)).data.data
@@ -42,6 +42,10 @@ const getSkinData = async (version, championId) => {
   // Add the splash art url to each skin
   skinData = skinData.map((skin) => {
     skin.splashUrl = `${DATA_DRAGON_BASE_URL}/cdn/img/champion/splash/${championId}_${skin.num}.jpg`
+    if (skin.name === 'default') {
+      skin.name = `Base ${championName}`
+    }
+
     return skin
   })
 

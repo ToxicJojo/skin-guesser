@@ -138,7 +138,11 @@ export default {
       this.currentChampion = randomHelper.getRandomElement(this.champions)
       // Without waiting for the next renderTick the skin select will not properly update to the new skin. I'm not sure why but this works.
       await this.$nextTick()
-      this.currentSkin = randomHelper.getRandomElement(this.currentChampion.skins)
+      if (this.$store.state.settings.includeBaseSkins) {
+        this.currentSkin = randomHelper.getRandomElement(this.currentChampion.skins)
+      } else {
+        this.currentSkin = randomHelper.getRandomElementBetween(this.currentChampion.skins, 1)
+      }
     },
     randomizeClipping () {
       this.clipData.radius = randomHelper.getRandomIntBetween(this.clipSettings.radius.min, this.clipSettings.radius.max)
