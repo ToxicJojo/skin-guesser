@@ -4,7 +4,7 @@
     .game-info
       GameTimer(v-if='isTimeAttack')
       PointCounter
-    img.settings-icon(src='@/assets/settings-24px.svg')
+    img.settings-icon(src='@/assets/settings-24px.svg' @click='$emit("showSettings")')
 </template>
 
 <script>
