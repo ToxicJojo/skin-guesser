@@ -1,8 +1,21 @@
 :root {
-  --color-background: #2C2C2C;
-  --color-header-background: #1C1C1C;
-  --color-text: #eee;
+  --color-background: #fff;
+  --color-background-dark: #ccc;
+  --color-header-background: #f1f1f1;
+  --color-shadow: #bbb;
+  --color-text: #333;
   --color-primary: #8341FF;
   --color-success: #00E676; 
   --color-error: #FF3D00; 
+}
+
+[data-theme='dark'] {
+  --color-background: #2C2C2C;
+  --color-background-dark: #1c1c1c;
+  --color-header-background: #1C1C1C;
+  --color-shadow: #333;
+  --color-text: #eee;
+  --color-primary: #8341FF;
+  --color-success: #00E676; 
+  --color-error: #FF3D00;
 }

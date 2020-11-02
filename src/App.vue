@@ -20,6 +20,28 @@ export default {
       isShowSettings: false,
     }
   },
+  computed: {
+    isDarkMode () {
+      return this.$store.state.settings.isDarkMode
+    },
+  },
+  watch: {
+    isDarkMode: function () {
+      this.setColorMode()
+    },
+  },
+  beforeMount () {
+    this.setColorMode()
+  },
+  methods: {
+    setColorMode () {
+      if (this.isDarkMode) {
+        document.documentElement.setAttribute('data-theme', 'dark')
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light')
+      }
+    },
+  },
 }
 </script>
 

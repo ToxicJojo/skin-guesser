@@ -2,6 +2,9 @@
   .settings-container(@click.self='$emit("close")')
     .settings
       h2 Settings
+      h3.settings-category General
+      label Darkmode
+        input(type='checkbox' v-model='isDarkMode')
       h3.settings-category Game
       label Include base skins
         input(type='checkbox' v-model='includeBaseSkins')
@@ -18,6 +21,14 @@ export default {
       },
       set (value) {
         this.$store.commit('settings/setIncludeBaseSkins', value)
+      },
+    },
+    isDarkMode: {
+      get () {
+        return this.$store.state.settings.isDarkMode
+      },
+      set (value) {
+        this.$store.commit('settings/setIsDarkMode', value)
       },
     },
   },
@@ -41,7 +52,7 @@ export default {
 .settings {
   background: var(--color-background);
   padding: 24px;
-  border: 5px solid var(--color-header-background);
+  border: 5px solid var(--color-background-dark);
   @include flex-col;
 
   h1, h2 {
@@ -50,7 +61,7 @@ export default {
 }
 
 .settings-category {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--color-background-dark);
 }
 
 </style>
