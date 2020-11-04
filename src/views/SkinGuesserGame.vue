@@ -104,6 +104,13 @@ export default {
         this.timerId = window.setInterval(this.timerTick, 1000)
       }
 
+      this.selectedChampion = this.champions[0]
+      if (this.$store.state.settings.includeBaseSkins) {
+        this.selectedSkin = this.selectedChampion.skins[0]
+      } else {
+        this.selectedSkin = this.selectedChampion.skins[1]
+      }
+
       this.isSelectingMode = false
     },
     showNextSkin () {
