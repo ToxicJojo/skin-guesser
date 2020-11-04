@@ -17,7 +17,7 @@
           label Displayed Skin:
           ChampionSelect(v-model='currentChampion')
           SkinSelect(v-model='currentSkin' :champion='currentChampion')
-          button(@click='showRandomSkin') Random Skin
+          button(@click='showNextSkin') Random Skin
           br
           label Radius
             input(type='range' min='0' max='100' v-model='clipData.radius')
@@ -140,16 +140,6 @@ export default {
     async loadChampionData () {
       this.isLoadingData = true
       await this.$store.dispatch('leagueData/loadChampions')
-    },
-    async showRandomSkin () {
-      this.currentChampion = randomHelper.getRandomElement(this.champions)
-      // Without waiting for the next renderTick the skin select will not properly update to the new skin. I'm not sure why but this works.
-      await this.$nextTick()
-      if (this.$store.state.settings.includeBaseSkins) {
-        this.currentSkin = randomHelper.getRandomElement(this.currentChampion.skins)
-      } else {
-        this.currentSkin = randomHelper.getRandomElementBetween(this.currentChampion.skins, 1)
-      }
     },
     selectNextSkin () {
       this.nextChampion = randomHelper.getRandomElement(this.champions)
