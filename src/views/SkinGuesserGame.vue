@@ -6,6 +6,7 @@
       GameSetup(v-if='isSelectingMode' @startGame='startGame')
       template(v-else)
         SkinDisplay(:splashUrl='currentSkin.splashUrl' :skinName='currentSkin.name' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
+        img.preload(:src='nextSkin.splashUrl')
         .guess-row
           ChampionSelect(v-model='selectedChampion')
           SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
@@ -16,7 +17,7 @@
           label Displayed Skin:
           ChampionSelect(v-model='currentChampion')
           SkinSelect(v-model='currentSkin' :champion='currentChampion')
-          button(@click='showRandomSkin') Random Skin
+          button(@click='showNextSkin') Random Skin
           br
           label Radius
             input(type='range' min='0' max='100' v-model='clipData.radius')
@@ -58,6 +59,8 @@ export default {
       },
       currentChampion: undefined,
       currentSkin: undefined,
+      nextChampion: undefined,
+      nextSkin: undefined,
       selectedChampion: {},
       selectedSkin: {},
       clipData: {
@@ -88,7 +91,9 @@ export default {
   },
   methods: {
     async startGame () {
-      await this.showRandomSkin()
+      this.selectNextSkin()
+      this.showNextSkin()
+
       this.randomizeClipping()
 
       this.$store.commit('gameData/setPoints', 0)
@@ -102,7 +107,9 @@ export default {
       this.isSelectingMode = false
     },
     showNextSkin () {
-      this.showRandomSkin()
+      this.currentChampion = this.nextChampion
+      this.currentSkin = this.nextSkin
+      this.selectNextSkin()
       this.randomizeClipping()
     },
     timerTick () {
@@ -134,14 +141,12 @@ export default {
       this.isLoadingData = true
       await this.$store.dispatch('leagueData/loadChampions')
     },
-    async showRandomSkin () {
-      this.currentChampion = randomHelper.getRandomElement(this.champions)
-      // Without waiting for the next renderTick the skin select will not properly update to the new skin. I'm not sure why but this works.
-      await this.$nextTick()
+    selectNextSkin () {
+      this.nextChampion = randomHelper.getRandomElement(this.champions)
       if (this.$store.state.settings.includeBaseSkins) {
-        this.currentSkin = randomHelper.getRandomElement(this.currentChampion.skins)
+        this.nextSkin = randomHelper.getRandomElement(this.nextChampion.skins)
       } else {
-        this.currentSkin = randomHelper.getRandomElementBetween(this.currentChampion.skins, 1)
+        this.nextSkin = randomHelper.getRandomElementBetween(this.nextChampion.skins, 1)
       }
     },
     randomizeClipping () {
@@ -166,6 +171,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+img.preload {
+  display: none;
+}
+
 .skin-guesser-game {
   padding: 24px;
   position: relative;
