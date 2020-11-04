@@ -29,6 +29,7 @@ export default {
 .mode-select {
   @include flex-row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 </style>
