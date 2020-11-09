@@ -2,18 +2,20 @@
   .app
     Settings(@close='isShowSettings = false' v-if='isShowSettings')
     Header(@showSettings='isShowSettings = true')
-    router-view
+    SkinGuesserGame
 </template>
 
 <script>
 import Header from '@/components/layout/Header.vue'
 import Settings from '@/components/layout/Settings.vue'
+import SkinGuesserGame from '@/views/SkinGuesserGame.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
     Settings,
+    SkinGuesserGame,
   },
   data () {
     return {

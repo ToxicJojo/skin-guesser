@@ -1,6 +1,6 @@
 <template lang='pug'>
   header.header
-    router-link(to='/') Skin Guesser
+    a(href='/') Skin Guesser
     .game-info
       GameTimer(v-if='isTimeAttack')
       PointCounter

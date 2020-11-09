@@ -10,7 +10,7 @@
         .guess-row
           ChampionSelect(v-model='selectedChampion')
           SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
-          button.guess-button(@click='checkGuess') Guess
+          button.button(@click='checkGuess') Guess
         button(@click='isShowDebug = !isShowDebug') Toggle debug mode
         .cheats(v-if='isShowDebug')
           h2 Debug Tools
@@ -104,6 +104,13 @@ export default {
         this.timerId = window.setInterval(this.timerTick, 1000)
       }
 
+      this.selectedChampion = this.champions[0]
+      if (this.$store.state.settings.includeBaseSkins) {
+        this.selectedSkin = this.selectedChampion.skins[0]
+      } else {
+        this.selectedSkin = this.selectedChampion.skins[1]
+      }
+
       this.isSelectingMode = false
     },
     showNextSkin () {
@@ -186,15 +193,12 @@ img.preload {
   justify-content: center;
 }
 
-.guess-button {
-  background: #EB5757;
-  color: var(--color-text);
-  font-size: 24px;
-  border-radius: 8px;
-  border-style: solid;
-  border-width: 0px;
-  padding: 16px;
-  margin: 8px;
+.button {
+  width: 100%;
+
+  @include min-width(900) {
+    width: auto;
+  }
 }
 
 .game-timer {

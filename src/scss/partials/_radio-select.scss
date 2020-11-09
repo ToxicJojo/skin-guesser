@@ -16,4 +16,5 @@ input.radio-select {
 
 input.radio-select:checked + label {
   background: var(--color-primary);
+  color: var(--color-button-text);
 }
