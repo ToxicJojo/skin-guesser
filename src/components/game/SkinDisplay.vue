@@ -49,6 +49,9 @@ export default {
     position: absolute;
     bottom: 0px;
     width: 100%;
+    height: 100%;
+    @include flex-col;
+    justify-content: flex-end;
     text-align: center;
     background: rgba(0, 0, 0, .5);
     padding: 8px;
@@ -56,6 +59,10 @@ export default {
     z-index: 1;
     transition: all .3s;
     opacity: 0;
+
+    @include min-width(450) {
+      height: auto;
+    }
   }
 
   &.guess-correct {
