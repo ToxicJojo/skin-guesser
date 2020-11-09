@@ -1,6 +1,6 @@
 <template lang='pug'>
   .app
-    Settings(@close='isShowSettings = false' v-if='isShowSettings')
+    Settings(@close='closeSettings' v-if='isShowSettings')
     Header(@showSettings='isShowSettings = true')
     SkinGuesserGame
 </template>
@@ -33,9 +33,18 @@ export default {
     },
   },
   beforeMount () {
+    const settings = JSON.parse(window.localStorage.getItem('settings'))
+
+    this.$store.commit('settings/setIncludeBaseSkins', settings.includeBaseSkins)
+    this.$store.commit('settings/setIsDarkMode', settings.isDarkMode)
+
     this.setColorMode()
   },
   methods: {
+    closeSettings () {
+      this.isShowSettings = false
+      window.localStorage.setItem('settings', JSON.stringify(this.$store.state.settings))
+    },
     setColorMode () {
       if (this.isDarkMode) {
         document.documentElement.setAttribute('data-theme', 'dark')
