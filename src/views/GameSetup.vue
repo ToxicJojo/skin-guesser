@@ -7,7 +7,7 @@
     .difficulty
       h2 Difficulty
       DifficultySelect(v-model='selectedDifficulty')
-    button(@click='startGame') Start Game
+    button.button(@click='startGame') Start Game
 </template>
 
 <script>
