@@ -11,11 +11,14 @@ export default {
       type: Number,
       required: true,
     },
+    remainingTime: {
+      type: Number,
+      required: true,
+    },
   },
   computed: {
     gameTimerBarStyle () {
-      const remainingTime = this.$store.state.gameData.remainingTime
-      const remainingRation = (remainingTime / this.maxTime) * 100
+      const remainingRation = (this.remainingTime / this.maxTime) * 100
 
       return {
         width: `${remainingRation}%`,
@@ -26,7 +29,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
 .game-timer {
   display: flex;
   width: 100%;
@@ -38,5 +40,4 @@ export default {
   width: 80%;
   background-color: var(--color-button-background);
 }
-
 </style>
