@@ -1,15 +1,25 @@
 <template lang='pug'>
   .game-timer
-    span Remaining Time:
-    span  {{ remainingTime }}
+    .game-timer__bar(:style='gameTimerBarStyle')
 </template>
 
 <script>
 export default {
   name: 'GameTimer',
+  props: {
+    maxTime: {
+      type: Number,
+      required: true,
+    },
+  },
   computed: {
-    remainingTime () {
-      return this.$store.state.gameData.remainingTime
+    gameTimerBarStyle () {
+      const remainingTime = this.$store.state.gameData.remainingTime
+      const remainingRation = (remainingTime / this.maxTime) * 100
+
+      return {
+        width: `${remainingRation}%`,
+      }
     },
   },
 }
@@ -18,8 +28,15 @@ export default {
 <style lang='scss' scoped>
 
 .game-timer {
-  font-size: 32px;
-  margin: 0 8px;
+  display: flex;
+  width: 100%;
+  height: 24px;
+  background-color: var(--color-background-dark);
+}
+
+.game-timer__bar {
+  width: 80%;
+  background-color: var(--color-button-background);
 }
 
 </style>

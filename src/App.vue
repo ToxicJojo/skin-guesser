@@ -1,7 +1,8 @@
 <template lang='pug'>
   .app
     Settings(@close='closeSettings' v-if='isShowSettings')
-    Header(@showSettings='isShowSettings = true')
+    //Header(@showSettings='isShowSettings = true')
+    Timer(:maxTime='120')
     SkinGuesserGame
 </template>
 
@@ -9,6 +10,7 @@
 import Header from '@/components/layout/Header.vue'
 import Settings from '@/components/layout/Settings.vue'
 import SkinGuesserGame from '@/views/SkinGuesserGame.vue'
+import Timer from '@/components/game/GameTimer.vue'
 
 export default {
   name: 'App',
@@ -16,6 +18,7 @@ export default {
     Header,
     Settings,
     SkinGuesserGame,
+    Timer,
   },
   data () {
     return {
@@ -34,9 +37,10 @@ export default {
   },
   beforeMount () {
     const settings = JSON.parse(window.localStorage.getItem('settings'))
-
-    this.$store.commit('settings/setIncludeBaseSkins', settings.includeBaseSkins)
-    this.$store.commit('settings/setIsDarkMode', settings.isDarkMode)
+    if (settings) {
+      this.$store.commit('settings/setIncludeBaseSkins', settings.includeBaseSkins)
+      this.$store.commit('settings/setIsDarkMode', settings.isDarkMode)
+    }
 
     this.setColorMode()
   },
