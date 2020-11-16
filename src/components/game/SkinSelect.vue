@@ -1,6 +1,6 @@
 <template lang='pug'>
-  select.guess-select(@change='$emit("input", skinList[$event.target.selectedIndex])' :value='value.id')
-    option(v-for='skin in skinList' :value='skin.id') {{ skin.name }}
+  select.guess-select(@change='$emit("input", skinList[$event.target.selectedIndex])' :value='value.id' ref='select')
+    option(v-for='skin in skinList' :value='skin.id' :key='skin.id') {{ skin.name }}
 </template>
 
 <script>
@@ -27,6 +27,11 @@ export default {
       } else {
         return []
       }
+    },
+  },
+  watch: {
+    champion () {
+      this.$emit('input', this.skinList[0])
     },
   },
 }

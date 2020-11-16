@@ -6,12 +6,12 @@
     .guess-row
       ChampionSelect(v-model='selectedChampion')
       SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
-      button.button(@click='checkGuess') Guess
+      button.button(@click='checkGuess' :disabled='currentPhase !== "guessing"') Guess
     button(@click='isShowDebug = !isShowDebug') Toggle debug mode
     .cheats(v-if='isShowDebug')
       h2 Debug Tools
       label Displayed Skin:
-      ChampionSelect(v-model='currentChampion')
+      ChampionSelect(v-model='currentChampion' @input='changeChampion')
       SkinSelect(v-model='currentSkin' :champion='currentChampion')
       button(@click='showNextSkin') Random Skin
       br
@@ -72,6 +72,7 @@ export default {
       },
       timerId: 0,
       remainingTime: 0,
+      currentPhase: 'none',
     }
   },
   computed: {
@@ -93,8 +94,6 @@ export default {
       this.selectNextSkin()
       this.showNextSkin()
 
-      this.randomizeClipping()
-
       if (this.isTimeAttack) {
         this.remainingTime = 120
 
@@ -113,6 +112,8 @@ export default {
       this.currentSkin = this.nextSkin
       this.selectNextSkin()
       this.randomizeClipping()
+
+      this.currentPhase = 'guessing'
     },
     timerTick () {
       this.remainingTime--
@@ -152,6 +153,7 @@ export default {
       this.clipData.y = randomHelper.getRandomIntBetween(this.clipSettings.y.min, this.clipSettings.y.max)
     },
     async checkGuess () {
+      this.currentPhase = 'transition'
       if (this.currentChampion.id === this.selectedChampion.id && this.currentSkin.id === this.selectedSkin.id) {
         await this.guessCorrect()
       } else {
