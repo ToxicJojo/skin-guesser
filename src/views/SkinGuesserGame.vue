@@ -8,21 +8,7 @@
       SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
       button.button(@click='checkGuess' :disabled='currentPhase !== "guessing"') Guess
     button(@click='isShowDebug = !isShowDebug') Toggle debug mode
-    .cheats(v-if='isShowDebug')
-      h2 Debug Tools
-      label Displayed Skin:
-      ChampionSelect(v-model='currentChampion' @input='changeChampion')
-      SkinSelect(v-model='currentSkin' :champion='currentChampion')
-      button(@click='showNextSkin') Random Skin
-      br
-      label Radius
-        input(type='range' min='0' max='100' v-model='clipData.radius')
-      label X
-        input(type='range' min='0' max='100' v-model='clipData.x')
-      label Y
-        input(type='range' min='0' max='100' v-model='clipData.y')
-      button(@click='randomizeClipping') Random Clipping
-      button(@click='revealSkin') Reveal Skin
+    DebugTools(v-if='isShowDebug' @randomizeClipping='randomizeClipping' @revealSkin='revealSkin' @showNextSkin='showNextSkin' :currentChampion='currentChampion' :currentSkin='currentSkin' :clipData='clipData' @changeChampion='currentChampion = $event' @changeSkin='currentSkin = $event')
 </template>
 
 <script>
@@ -30,6 +16,7 @@ import GameTimer from '@/components/game/GameTimer.vue'
 import SkinDisplay from '@/components/game/SkinDisplay.vue'
 import ChampionSelect from '@/components/game/ChampionSelect.vue'
 import SkinSelect from '@/components/game/SkinSelect.vue'
+import DebugTools from '@/components/game/DebugTools.vue'
 
 import randomHelper from '@/util/random-helper'
 import wait from '@/util/wait'
@@ -41,6 +28,7 @@ export default {
     SkinDisplay,
     ChampionSelect,
     SkinSelect,
+    DebugTools,
   },
   props: {
     gameMode: {
