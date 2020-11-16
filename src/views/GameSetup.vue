@@ -31,10 +31,7 @@ export default {
   },
   methods: {
     startGame () {
-      this.$store.commit('gameData/setGameMode', this.selectedMode)
-      this.$store.commit('gameData/setDifficulty', this.selectedDifficulty)
-
-      this.$emit('startGame')
+      this.$emit('startGame', this.selectedMode, this.selectedDifficulty)
     },
   },
 }

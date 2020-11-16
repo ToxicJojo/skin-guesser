@@ -1,24 +1,18 @@
 <template lang='pug'>
   .app
     Settings(@close='closeSettings' v-if='isShowSettings')
-    //Header(@showSettings='isShowSettings = true')
-    Timer(:maxTime='120')
-    SkinGuesserGame
+    GameContainer
 </template>
 
 <script>
-import Header from '@/components/layout/Header.vue'
 import Settings from '@/components/layout/Settings.vue'
-import SkinGuesserGame from '@/views/SkinGuesserGame.vue'
-import Timer from '@/components/game/GameTimer.vue'
+import GameContainer from '@/views/GameContainer.vue'
 
 export default {
   name: 'App',
   components: {
-    Header,
     Settings,
-    SkinGuesserGame,
-    Timer,
+    GameContainer,
   },
   data () {
     return {
