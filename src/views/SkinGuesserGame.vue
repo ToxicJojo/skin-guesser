@@ -1,6 +1,6 @@
 <template lang='pug'>
   .skin-guesser-game
-    GameTimer(:maxTime='120' :remainingTime='remainingTime' v-if='isTimeAttack')
+    GameTimer(:maxTime='120' :remainingTime='remainingTime' v-if='isTimeAttack || isSurvival')
     SkinDisplay(:splashUrl='currentSkin.splashUrl' :skinName='currentSkin.name' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
     img.preload(:src='nextSkin.splashUrl')
     .guess-row
@@ -73,6 +73,9 @@ export default {
     isTimeAttack () {
       return this.gameMode.id === 'timeAttack'
     },
+    isSurvival () {
+      return this.gameMode.id === 'survival'
+    },
   },
   beforeMount () {
     this.startGame()
@@ -82,7 +85,7 @@ export default {
       this.selectNextSkin()
       this.showNextSkin()
 
-      if (this.isTimeAttack) {
+      if (this.isTimeAttack || this.isSurvival) {
         this.remainingTime = 120
 
         this.timerId = window.setInterval(this.timerTick, 1000)
@@ -105,7 +108,7 @@ export default {
     },
     timerTick () {
       this.remainingTime--
-      if (this.remainingTime <= 0 && this.isTimeAttack) {
+      if (this.remainingTime <= 0 && (this.isTimeAttack || this.isSurvival)) {
         window.clearInterval(this.timerId)
         alert('Time Up.')
         this.hideSkin()
@@ -120,10 +123,18 @@ export default {
       await wait(1000)
     },
     async guessCorrect () {
+      if (this.isSurvival) {
+        this.remainingTime += 10
+      }
+
       this.gameState.isGuessCorrect = true
       await this.revealSkin()
     },
     async guessIncorrect () {
+      if (this.isSurvival) {
+        this.remainingTime -= 10
+      }
+
       this.gameState.isGuessIncorrect = true
       await this.revealSkin()
     },
