@@ -3,7 +3,11 @@
   color: var(--color-button-text);
   font-size: 24px;
   padding: 24px;
-  margin: 8px;
   border: 0px;
+  margin: 8px 0px;
   border-radius: 8px;
+
+  @include min-width (900) {
+    margin: 0px 8px;
+  }
 }

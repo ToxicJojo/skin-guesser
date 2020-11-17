@@ -2,7 +2,7 @@ select.guess-select {
   width: 100%;
   font-size: 24px;
   padding: 8px;
-  margin: 8px;
+  margin: 8px 0px;
   background-color: var(--color-background);
   color: var(--color-text);
   border-color: var(--color-primary);
@@ -11,5 +11,6 @@ select.guess-select {
 
   @include min-width (900) {
     width: auto;
+    margin: 0px 8px;
   }
 }
