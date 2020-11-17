@@ -4,7 +4,7 @@
     SkinDisplay(:splashUrl='currentSkin.splashUrl' :skinName='currentSkin.name' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
     img.preload(:src='nextSkin.splashUrl')
     .guess-row
-      ChampionSelect(v-model='selectedChampion')
+      ChampionSelect(v-model='selectedChampion' ref='championSelect')
       SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
       button.button(@click='checkGuess' :disabled='currentPhase !== "guessing"') Guess
     //button(@click='isShowDebug = !isShowDebug') Toggle debug mode
@@ -167,6 +167,7 @@ export default {
       this.gameState.isGuessIncorrect = false
       await this.hideSkin()
       this.showNextSkin()
+      document.querySelector('select.guess-select').focus()
     },
   },
 }
