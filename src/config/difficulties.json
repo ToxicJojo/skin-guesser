@@ -15,6 +15,11 @@
                 "min": 25,
                 "max": 75
             }
+        },
+        "survivalSettings": {
+            "lifeDrain": 0.1,
+            "lifeGain": 10,
+            "lifeLoss": 5
         }
     },
     {
@@ -33,6 +38,11 @@
                 "min": 15,
                 "max": 85
             }
+        },
+        "survivalSettings": {
+            "lifeDrain": 0.15,
+            "lifeGain": 10,
+            "lifeLoss": 10
         }
     },
     {
@@ -51,6 +61,11 @@
                 "min": 10,
                 "max": 90
             }
-        }
+        },
+        "survivalSettings": {
+            "lifeDrain": 0.2,
+            "lifeGain": 5,
+            "lifeLoss": 20
+        }      
     }
 ]

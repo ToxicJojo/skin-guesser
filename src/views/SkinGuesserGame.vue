@@ -88,7 +88,7 @@ export default {
       if (this.isTimeAttack || this.isSurvival) {
         this.remainingTime = 120
 
-        this.timerId = window.setInterval(this.timerTick, 1000)
+        this.timerId = window.setInterval(this.timerTick, 50)
       }
 
       this.selectedChampion = this.champions[0]
@@ -107,7 +107,11 @@ export default {
       this.currentPhase = 'guessing'
     },
     timerTick () {
-      this.remainingTime--
+      if (this.isSurvival) {
+        this.remainingTime -= this.difficulty.survivalSettings.lifeDrain
+      } else {
+        this.remainingTime -= 0.05
+      }
       if (this.remainingTime <= 0 && (this.isTimeAttack || this.isSurvival)) {
         window.clearInterval(this.timerId)
         alert('Time Up.')
@@ -124,7 +128,7 @@ export default {
     },
     async guessCorrect () {
       if (this.isSurvival) {
-        this.remainingTime += 10
+        this.remainingTime += this.difficulty.survivalSettings.lifeGain
       }
 
       this.gameState.isGuessCorrect = true
@@ -132,7 +136,7 @@ export default {
     },
     async guessIncorrect () {
       if (this.isSurvival) {
-        this.remainingTime -= 10
+        this.remainingTime -= this.difficulty.survivalSettings.lifeLoss
       }
 
       this.gameState.isGuessIncorrect = true
