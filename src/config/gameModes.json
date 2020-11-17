@@ -8,5 +8,10 @@
     "name": "Time Attack",
     "id": "timeAttack",
     "description": "Guess as many as you can until the time runs out."
+  },
+  {
+    "name": "Survival",
+    "id": "survival",
+    "description": "Guess until your time runs out. Every correct guess adds some time."
   }
 ]

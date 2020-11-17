@@ -18,10 +18,10 @@ export default {
   },
   computed: {
     gameTimerBarStyle () {
-      const remainingRation = (this.remainingTime / this.maxTime) * 100
+      const remainingRation = Math.max((this.remainingTime / this.maxTime), 0)
 
       return {
-        width: `${remainingRation}%`,
+        transform: `scaleX(${remainingRation})`,
       }
     },
   },
@@ -37,7 +37,8 @@ export default {
 }
 
 .game-timer__bar {
-  width: 80%;
+  transition: transform .25s;
+  width: 100%;
   background-color: var(--color-button-background);
 }
 </style>
