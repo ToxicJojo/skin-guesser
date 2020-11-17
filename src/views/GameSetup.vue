@@ -7,7 +7,7 @@
     .difficulty
       h2 Difficulty
       DifficultySelect(v-model='selectedDifficulty')
-    button.button(@click='startGame') Start Game
+    button.button.button-start-game(@click='startGame') Start Game
 </template>
 
 <script>
@@ -43,6 +43,10 @@ export default {
   @include flex-col;
   align-items: center;
   text-align: center;
+}
+
+.button-start-game {
+  margin-top: 32px;
 }
 
 </style>
