@@ -42,6 +42,7 @@ const getSkinData = async (version, championId, championName) => {
   // Add the splash art url to each skin
   skinData = skinData.map((skin) => {
     skin.splashUrl = `${DATA_DRAGON_BASE_URL}/cdn/img/champion/splash/${championId}_${skin.num}.jpg`
+    skin.loadingUrl = `${DATA_DRAGON_BASE_URL}/cdn/img/champion/loading/${championId}_${skin.num}.jpg`
     if (skin.name === 'default') {
       skin.name = `Base ${championName}`
     }
