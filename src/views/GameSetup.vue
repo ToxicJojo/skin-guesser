@@ -43,6 +43,10 @@ export default {
   @include flex-col;
   align-items: center;
   text-align: center;
+  background-color: var(--color-background-dark);
+  padding: 64px;
+  margin: 32px;
+  border-radius: 24px;
 }
 
 .button-start-game {

@@ -50,4 +50,9 @@ export default {
 
 <style lang='scss' scoped>
 
+.game-container {
+  @include flex-row;
+  justify-content: center;
+}
+
 </style>

@@ -58,6 +58,7 @@ export default {
   @include flex-col;
   align-items: center;
   padding: 24px;
+  width: 100%;
 
   @include min-width(1300) {
     @include flex-row;

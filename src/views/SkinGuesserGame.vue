@@ -199,6 +199,7 @@ img.preload {
   position: relative;
   @include flex-col;
   align-items: center;
+  width: 100%;
 }
 
 .guess-row {
