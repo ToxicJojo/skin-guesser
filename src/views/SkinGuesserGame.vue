@@ -7,7 +7,7 @@
       ChampionSelect(v-model='selectedChampion' ref='championSelect')
       SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
       button.button(@click='checkGuess' :disabled='currentPhase !== "guessing"') Guess
-    //button(@click='isShowDebug = !isShowDebug') Toggle debug mode
+    button(@click='isShowDebug = !isShowDebug') Toggle debug mode
     DebugTools(v-if='isShowDebug' @randomizeClipping='randomizeClipping' @revealSkin='revealSkin' @showNextSkin='showNextSkin' :currentChampion='currentChampion' :currentSkin='currentSkin' :clipData='clipData' @changeChampion='currentChampion = $event' @changeSkin='currentSkin = $event')
 </template>
 

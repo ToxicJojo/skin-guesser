@@ -2,8 +2,74 @@ const axios = require('axios')
 const fs = require('fs-extra')
 
 const groupSkinsNames = [
+  // Group Skins
+  'Academy',
+  'Pentakill',
   'Pool Party',
+  'Guardian of the Sands',
+  'Prehistoric',
+  'Beast Hunter',
+  'Warden',
+  // Silver Age
+  'Super Kennen',
+  'Renektoy',
+  'Moo Cow Alistar',
+  'Pug\'Maw',
+  // Heartseeker
+  'Heartseeker Yuumi',
+  'Heartseeker Jinx',
+  // Astronaut
+  'Astronaut Gnar',
+  'Astronaut Poppy',
+  // Omen of the Dark
+  'Black Scrounge Singed',
+  'Cursed Revenant Nocturne',
+  'Iron Inquisitor Kayle',
+  // Culinary Masters
+  'Baker Pantheon',
+  'Barbecue Leona',
+  'Butcher Olaf',
+  'Sashimi Akali',
+  // Rift Quest
+  'Ryze Whitebeard',
+  'Braum Lionhear',
+  'Gragas Caskbreaker',
+  'Varus Swiftbold',
+  'Taric Luminshield',
+  'Twitch Shadowfoot',
+  'Talon Blackwood',
+  // Highstakes
+  'Ace of Spades Ezeral',
+  'Jack of Hearts Twisted Fate',
+  'King of Clubs Mordekaiser',
+  'Queen of Diamonds Syndra',
+  'Wild Card Shaco',
+  // There are other snow day skins which don't have group arts
+  'Snow Day Bard',
+  'Snow Day Gnar',
+  'Snow Day Syndra',
+  // There are other snow cosmic skins which don't have group arts
+  'Cosmic Dusk Xayah',
+  'Cosmic Dawn Rakan',
+  'Pajama Guardian',
+  // These jokes skins have a group art
+  'Order of the Banana Soraka',
+  'Urf the Nami-tee',
+  'Definitely Not Udyr',
+  'Archduke Nasus',
+  // Xayah and Rakan skins share the same art
+  'Sweetheart Xayah',
+  'Sweetheart Rakan',
+  // World Champion skinlines
+  'Fnatic',
+  'TPA',
+  'SKT T1',
+  'SSW',
+  'SSG',
+  'iG',
+  'FPX',
 ]
+
 const DATA_DRAGON_BASE_URL = 'https://ddragon.leagueoflegends.com'
 axios.defaults.baseURL = DATA_DRAGON_BASE_URL
 
