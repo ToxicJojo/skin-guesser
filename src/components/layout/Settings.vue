@@ -8,6 +8,8 @@
       h3.settings-category Game
       label Include base skins
         input(type='checkbox' v-model='includeBaseSkins')
+      label Include group skins
+        input(type='checkbox' v-model='includeGroupSkins')
 </template>
 
 <script>
@@ -21,6 +23,14 @@ export default {
       },
       set (value) {
         this.$store.commit('settings/setIncludeBaseSkins', value)
+      },
+    },
+    includeGroupSkins: {
+      get () {
+        return this.$store.state.settings.includeGroupSkins
+      },
+      set (value) {
+        this.$store.commit('settings/setIncludeGroupSkins', value)
       },
     },
     isDarkMode: {

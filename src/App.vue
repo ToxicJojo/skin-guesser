@@ -33,6 +33,7 @@ export default {
     const settings = JSON.parse(window.localStorage.getItem('settings'))
     if (settings) {
       this.$store.commit('settings/setIncludeBaseSkins', settings.includeBaseSkins)
+      this.$store.commit('settings/setIncludeGroupSkins', settings.includeGroupSkins)
       this.$store.commit('settings/setIsDarkMode', settings.isDarkMode)
     }
 

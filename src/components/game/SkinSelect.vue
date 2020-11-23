@@ -4,6 +4,8 @@
 </template>
 
 <script>
+import skinHelper from '@/util/skin-helper'
+
 export default {
   name: 'SkinSelect',
   props: {
@@ -18,15 +20,7 @@ export default {
   },
   computed: {
     skinList () {
-      if (this.champion.skins) {
-        if (this.$store.state.settings.includeBaseSkins) {
-          return this.champion.skins
-        } else {
-          return this.champion.skins.slice(1)
-        }
-      } else {
-        return []
-      }
+      return skinHelper.filterSkins(this.champion.skins, this.$store.state.settings)
     },
   },
   watch: {
