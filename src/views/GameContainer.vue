@@ -3,7 +3,7 @@
     template(v-if='isLoadingChampionData')
       span Loading Data
     template(v-else)
-      GameSetup(v-if='currentState === "gameSetup"' @startGame='startGame')
+      GameSetup(v-if='currentState === "gameSetup"' @startGame='startGame' @settings='$emit("settings")')
       SkinGuesserGame(v-if='currentState === "gameRunning"' :gameMode='gameMode' :difficulty='difficulty' @gameFinished='gameFinished')
       GameResult(v-if='currentState === "gameResult"' :guessHistory='guessHistory' :gameMode='gameMode' :difficulty='difficulty' @newGame='currentState = "gameSetup"')
 </template>

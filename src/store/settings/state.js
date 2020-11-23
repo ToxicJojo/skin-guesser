@@ -1,6 +1,6 @@
 const state = {
   includeBaseSkins: false,
-  isDarkMode: false,
+  isDarkMode: true,
 }
 
 export default state
