@@ -1,8 +1,17 @@
 const axios = require('axios')
 const fs = require('fs-extra')
 
+const groupSkinsNames = [
+  'Pool Party',
+]
 const DATA_DRAGON_BASE_URL = 'https://ddragon.leagueoflegends.com'
 axios.defaults.baseURL = DATA_DRAGON_BASE_URL
+
+const isGroupSkin = (skin) => {
+  return groupSkinsNames.some((name) => {
+    return skin.name.includes(name)
+  })
+}
 
 /**
  * Fetches the avaiable game versions from data dragon and returns the most current one.
@@ -45,6 +54,12 @@ const getSkinData = async (version, championId, championName) => {
     skin.loadingUrl = `${DATA_DRAGON_BASE_URL}/cdn/img/champion/loading/${championId}_${skin.num}.jpg`
     if (skin.name === 'default') {
       skin.name = `Base ${championName}`
+    }
+
+    if (isGroupSkin(skin)) {
+      skin.isGroupSkin = true
+    } else {
+      skin.isGroupSkin = false
     }
 
     return skin
