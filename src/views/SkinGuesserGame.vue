@@ -4,10 +4,10 @@
     SkinDisplay(:splashUrl='currentSkin.splashUrl' :skinName='currentSkin.name' :clipData='clipData' :class='{"guess-correct": gameState.isGuessCorrect, "guess-incorrect": gameState.isGuessIncorrect}')
     img.preload(:src='nextSkin.splashUrl')
     .guess-row
-      ChampionSelect(v-model='selectedChampion')
+      ChampionSelect(v-model='selectedChampion' ref='championSelect')
       SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
       button.button(@click='checkGuess' :disabled='currentPhase !== "guessing"') Guess
-    button(@click='isShowDebug = !isShowDebug') Toggle debug mode
+    //button(@click='isShowDebug = !isShowDebug') Toggle debug mode
     DebugTools(v-if='isShowDebug' @randomizeClipping='randomizeClipping' @revealSkin='revealSkin' @showNextSkin='showNextSkin' :currentChampion='currentChampion' :currentSkin='currentSkin' :clipData='clipData' @changeChampion='currentChampion = $event' @changeSkin='currentSkin = $event')
 </template>
 
@@ -61,6 +61,7 @@ export default {
       timerId: 0,
       remainingTime: 0,
       currentPhase: 'none',
+      guessHistory: [],
     }
   },
   computed: {
@@ -114,8 +115,8 @@ export default {
       }
       if (this.remainingTime <= 0 && (this.isTimeAttack || this.isSurvival)) {
         window.clearInterval(this.timerId)
-        alert('Time Up.')
         this.hideSkin()
+        this.$emit('gameFinished', this.guessHistory)
       }
     },
     async revealSkin () {
@@ -131,6 +132,14 @@ export default {
         this.remainingTime += this.difficulty.survivalSettings.lifeGain
       }
 
+      const historyEntry = {
+        champion: this.currentChampion,
+        skin: this.currentSkin,
+        correct: true,
+      }
+
+      this.guessHistory.push(historyEntry)
+
       this.gameState.isGuessCorrect = true
       await this.revealSkin()
     },
@@ -138,6 +147,14 @@ export default {
       if (this.isSurvival) {
         this.remainingTime -= this.difficulty.survivalSettings.lifeLoss
       }
+
+      const historyEntry = {
+        champion: this.currentChampion,
+        skin: this.currentSkin,
+        correct: false,
+      }
+
+      this.guessHistory.push(historyEntry)
 
       this.gameState.isGuessIncorrect = true
       await this.revealSkin()
@@ -167,6 +184,7 @@ export default {
       this.gameState.isGuessIncorrect = false
       await this.hideSkin()
       this.showNextSkin()
+      document.querySelector('select.guess-select').focus()
     },
   },
 }
@@ -181,11 +199,13 @@ img.preload {
   position: relative;
   @include flex-col;
   align-items: center;
+  width: 100%;
 }
 
 .guess-row {
   @include flex-row;
   flex-wrap: wrap;
+  margin: 0px 24px;
 }
 
 .button {

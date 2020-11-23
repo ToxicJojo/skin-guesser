@@ -63,7 +63,7 @@
             }
         },
         "survivalSettings": {
-            "lifeDrain": 0.2,
+            "lifeDrain": 1.2,
             "lifeGain": 5,
             "lifeLoss": 20
         }      

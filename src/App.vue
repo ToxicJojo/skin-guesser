@@ -1,7 +1,7 @@
 <template lang='pug'>
   .app
     Settings(@close='closeSettings' v-if='isShowSettings')
-    GameContainer
+    GameContainer(@settings='isShowSettings = true')
 </template>
 
 <script>
