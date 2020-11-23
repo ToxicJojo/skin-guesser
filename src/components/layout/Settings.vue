@@ -51,7 +51,8 @@ export default {
 
 .settings {
   background: var(--color-background);
-  padding: 24px;
+  min-width: 300px;
+  padding: 32px;
   border: 5px solid var(--color-background-dark);
   @include flex-col;
 
