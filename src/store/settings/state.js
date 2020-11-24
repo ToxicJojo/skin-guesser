@@ -1,5 +1,6 @@
 const state = {
   includeBaseSkins: false,
+  includeGroupSkins: false,
   isDarkMode: true,
 }
 

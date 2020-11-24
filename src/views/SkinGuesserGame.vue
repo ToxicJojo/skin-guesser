@@ -7,7 +7,7 @@
       ChampionSelect(v-model='selectedChampion' ref='championSelect')
       SkinSelect(v-model='selectedSkin' :champion='selectedChampion')
       button.button(@click='checkGuess' :disabled='currentPhase !== "guessing"') Guess
-    //button(@click='isShowDebug = !isShowDebug') Toggle debug mode
+    button(@click='isShowDebug = !isShowDebug') Toggle debug mode
     DebugTools(v-if='isShowDebug' @randomizeClipping='randomizeClipping' @revealSkin='revealSkin' @showNextSkin='showNextSkin' :currentChampion='currentChampion' :currentSkin='currentSkin' :clipData='clipData' @changeChampion='currentChampion = $event' @changeSkin='currentSkin = $event')
 </template>
 
@@ -19,6 +19,7 @@ import SkinSelect from '@/components/game/SkinSelect.vue'
 import DebugTools from '@/components/game/DebugTools.vue'
 
 import randomHelper from '@/util/random-helper'
+import skinHelper from '@/util/skin-helper'
 import wait from '@/util/wait'
 
 export default {
@@ -161,11 +162,9 @@ export default {
     },
     selectNextSkin () {
       this.nextChampion = randomHelper.getRandomElement(this.champions)
-      if (this.$store.state.settings.includeBaseSkins) {
-        this.nextSkin = randomHelper.getRandomElement(this.nextChampion.skins)
-      } else {
-        this.nextSkin = randomHelper.getRandomElementBetween(this.nextChampion.skins, 1)
-      }
+      const possibleSkins = skinHelper.filterSkins(this.nextChampion.skins, this.$store.state.settings)
+
+      this.nextSkin = randomHelper.getRandomElement(possibleSkins)
     },
     randomizeClipping () {
       this.clipData.radius = randomHelper.getRandomIntBetween(this.clipSettings.radius.min, this.clipSettings.radius.max)
