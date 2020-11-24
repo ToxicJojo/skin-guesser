@@ -10,6 +10,8 @@ const groupSkinsNames = [
   'Prehistoric',
   'Beast Hunter',
   'Warden',
+  'Tango',
+  'Pajama Guardian',
   // Silver Age
   'Super Kennen',
   'Renektoy',
@@ -21,15 +23,34 @@ const groupSkinsNames = [
   // Astronaut
   'Astronaut Gnar',
   'Astronaut Poppy',
+  // Woad Tribe
+  'Battleborn Kayle',
+  'Exiled Morgana',
+  // Battle Boss
+  'Arcade Riven',
+  'Battle Boss Blitzcrank',
+  // Blackfrost
+  'Blackfrost Renekton',
+  'Blackfrost Alistar',
   // Omen of the Dark
   'Black Scrounge Singed',
   'Cursed Revenant Nocturne',
   'Iron Inquisitor Kayle',
+  // Cats VS Dogs
+  'Fuzz Fizz',
+  'Corgi Corki',
+  'Pretty Kitty Rengar',
+  'Meowrick',
   // Culinary Masters
   'Baker Pantheon',
   'Barbecue Leona',
   'Butcher Olaf',
   'Sashimi Akali',
+  // These skins share a splash even though they are not all from the same skinline
+  'Draven Draven',
+  'Definitely Not Vel\'Koz',
+  'Meowkai',
+  'Urf Kench',
   // Rift Quest
   'Ryze Whitebeard',
   'Braum Lionhear',
@@ -38,12 +59,55 @@ const groupSkinsNames = [
   'Taric Luminshield',
   'Twitch Shadowfoot',
   'Talon Blackwood',
+  // Socer Cup
+  'Goalkeeper Maokai',
+  'Red Card Twisted Fate',
+  'Striker Lucian',
+  'Superfan Gragas',
+  'Sweeper Alistar',
+  // Sugar Rush
+  'Sugar Rush Braum',
+  'Sugar Rush Evelynn',
   // Highstakes
   'Ace of Spades Ezeral',
   'Jack of Hearts Twisted Fate',
   'King of Clubs Mordekaiser',
   'Queen of Diamonds Syndra',
   'Wild Card Shaco',
+  // Lunar Wraith
+  'Lunar Wraith Morgana',
+  'Lunar Wraith Caitlyn',
+  // Luchador
+  'El Macho Mundo',
+  'El Rayo Volibear',
+  'El León Gnar',
+  // Infernal
+  'Infernal Galio',
+  'Infernal Varus',
+  'Infernal Shen',
+  'Infernal Kennen',
+  'Infernal Karthus',
+  // Zombies VS Slayers
+  'Zombie Slayer Jinx',
+  'Zombie Slayer Pantheon',
+  'Zombie Nunu & Willump',
+  // Worldbreaker
+  'Worldbreaker Hecarim',
+  'Worldbreaker Nasus',
+  'Worldbreaker Nautilus',
+  'Worldbreaker Trundle',
+  // Bilgewater: Burning Tides
+  'Ironside Malphite',
+  'Sea Hunter Aatrox',
+  'Corsair Quinn',
+  'Rouge Admiral Garen',
+  'Cutthroat Graves',
+  'Cutpurse Twisted Fate',
+  // Cops and Robber
+  'Captain Volibear',
+  'Constable Trundle',
+  'Safecracker Evelynn',
+  'Pickpocket Twitch',
   // There are other snow day skins which don't have group arts
   'Snow Day Bard',
   'Snow Day Gnar',
@@ -51,12 +115,12 @@ const groupSkinsNames = [
   // There are other snow cosmic skins which don't have group arts
   'Cosmic Dusk Xayah',
   'Cosmic Dawn Rakan',
-  'Pajama Guardian',
   // These jokes skins have a group art
   'Order of the Banana Soraka',
   'Urf the Nami-tee',
   'Definitely Not Udyr',
   'Archduke Nasus',
+  'Suprise Party Amumu',
   // Xayah and Rakan skins share the same art
   'Sweetheart Xayah',
   'Sweetheart Rakan',
