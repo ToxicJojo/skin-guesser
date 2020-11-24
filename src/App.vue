@@ -2,16 +2,19 @@
   .app
     Settings(@close='closeSettings' v-if='isShowSettings')
     GameContainer(@settings='isShowSettings = true')
+    Footer
 </template>
 
 <script>
 import Settings from '@/components/layout/Settings.vue'
+import Footer from '@/components/layout/Footer.vue'
 import GameContainer from '@/views/GameContainer.vue'
 
 export default {
   name: 'App',
   components: {
     Settings,
+    Footer,
     GameContainer,
   },
   data () {
@@ -60,6 +63,12 @@ export default {
 
 body {
   background-color: var(--color-background);
+}
+
+.app {
+  @include flex-col;
+  justify-content: space-between;
+  min-height: 100vh;
 }
 
 </style>
